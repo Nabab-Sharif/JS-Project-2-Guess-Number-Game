@@ -1,6 +1,8 @@
 let card1 = document.querySelector('.card1');
 let card1username = document.querySelector('.card1username')
 let card1_btn = document.querySelector('.card1_btn')
+let card1_error = document.querySelector('.card1_error');
+
 
 
 let card2 = document.querySelector('.card2');
@@ -15,7 +17,7 @@ let card3 = document.querySelector('.card3');
 let card3Title = document.querySelector('.card3Title');
 let card3player_two = document.querySelector('.card3player_two');
 let card3_btn = document.querySelector('.card3_btn');
-
+let card3_error = document.querySelector('.card3_error');
 
 
 
@@ -33,72 +35,86 @@ let card5Title = document.querySelector('.card5Title');
 
 
 // for card 1 
+//...............Start Card 1......................................
 card1_btn.addEventListener('click', function () {
-  let card1UserName = card1username.value;
 
-  card2.style.display = "block";
-  card2Title.innerHTML = card1UserName;
-  card1.style.display = "none";
+  if (card1username.value == "") {
+    card1_error.innerHTML = 'there is no input please enter the input'
+  } else {
+    card1_error.innerHTML = "";
+    card2.style.display = "flex";
+    card1.style.display = "none";
+    card2Title.innerHTML = card1username.value;
+  }
 
 })
+//.................End Card 1......................................
 
 
 
-// for card 2
+
+//...............Start Card 2......................................
 card2_btn.addEventListener('click', function () {
-  let card2Player_One = card2player_one.value;
 
-
-  if (card2Player_One <= 10 && card2Player_One >= 1) {
+  if (card2player_one.value > 0 && card2player_one.value <= 10) {
     card2.style.display = "none";
-    card3.style.display = "block";
+    card3.style.display = "flex";
+    card2_error.innerHTML = "";
   }
   else {
     card2_error.innerHTML = 'out of range please enter 1 between 10';
   }
 
-
 })
+//...............End Card 2........................................
 
 
 
 
-// for card 3
 
+//...............Start Card 3......................................
 card3_btn.addEventListener('click', function () {
-  let card3Player_Two = card3player_two.value;
-
-  card4Title.innerHTML = card3Player_Two;
-  card3.style.display = "none";
-  card4.style.display = "block";
+  if (card3player_two.value == "") {
+    card3_error.innerHTML = 'there is no input please enter the input'
+  }
+  else {
+    card3_error.innerHTML = ""
+    card3.style.display = "none";
+    card4.style.display = "flex";
+    card4Title.innerHTML = card3player_two.value;
+  }
 
 })
+//...............End Card 3........................................
 
 
-// for card 4
 
-let count = 3;
+
+
+
+
+//...............Start Card 4......................................
+
+let count = 5;
 
 card4_btn.addEventListener('click', function () {
-  let Card4_GuessNumber = card4_guessNumber.value;
-  let Card2player_one = card2player_one.value;
 
-
-  if (Card2player_one == Card4_GuessNumber) {
+  if (card2player_one.value == card4_guessNumber.value) {
     card4.style.display = "none";
-    card5.style.display = 'block';
-    card5Title.innerHTML = 'Player Two Win'
-
+    card5.style.display = 'flex';
+    card5Title.innerHTML = `player ${card3player_two.value} win`;
+    chance.innerHTML = ""
   }
-  else if (count == 0) {
-    card4.style.display = "none";
-    card5.style.display = 'block';
-    card5Title.innerHTML = 'Player One Win'
-  } else {
+  else {
     count--;
+    chance.innerHTML = count;
+    if (count == 0) {
+      card5Title.innerHTML = `player ${card1username.value} win / right number is =${card2player_one.value}`;
+      card4.style.display = "none";
+      card5.style.display = 'flex';
+    }
   }
-
-  chance.innerHTML = count;
-
 
 })
+
+//...............End Card 4........................................
