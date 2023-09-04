@@ -26,6 +26,7 @@ let card4Title = document.querySelector('.card4Title');
 let card4_guessNumber = document.querySelector('.card4_guessNumber');
 let card4_btn = document.querySelector('.card4_btn');
 let chance = document.querySelector('.chance');
+let card4_error = document.querySelector('.card4_error');
 
 
 
@@ -104,15 +105,23 @@ card4_btn.addEventListener('click', function () {
     card5.style.display = 'flex';
     card5Title.innerHTML = `player ${card3player_two.value} win`;
     chance.innerHTML = ""
+    card4_error.innerText = ''
   }
   else {
-    count--;
-    chance.innerHTML = count;
-    if (count == 0) {
-      card5Title.innerHTML = `player ${card1username.value} win / right number is =${card2player_one.value}`;
-      card4.style.display = "none";
-      card5.style.display = 'flex';
+    if (card4_guessNumber.value == '') {
+      card4_error.innerText = 'please enter the guess number'
+    } else {
+      count--;
+      chance.innerHTML = count;
+      card4_error.innerText = ''
+      if (count == 0) {
+        card5Title.innerHTML = `player ${card1username.value} win / right number is =${card2player_one.value}`;
+        card4.style.display = "none";
+        card5.style.display = 'flex';
+
+      }
     }
+
   }
 
 })
